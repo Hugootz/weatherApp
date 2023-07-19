@@ -7,7 +7,9 @@ import {
   IconSun,
   Refresh,
   RefreshButton,
+  Wrapper,
 } from "./styles";
+import { MainCard } from "../components/MainCard";
 
 export function Home() {
   const [darktheme, setDarkTheme] = useState(true);
@@ -23,6 +25,11 @@ export function Home() {
         <Temperature isActive={darktheme}>{currentTemperature}</Temperature>
         <Symbol isActive={darktheme}>°C</Symbol>
       </Header>
+      <Wrapper isActive={darktheme}>
+        <MainCard time={"Manhã"} />
+        <MainCard time={"Tarde"} />
+        <MainCard time={"Noite"} />
+      </Wrapper>
     </Container>
   );
 }
