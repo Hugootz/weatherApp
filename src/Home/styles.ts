@@ -44,3 +44,9 @@ export const Symbol = styled.Text<StyledProps>`
   color: ${({ isActive }) =>
     isActive ? theme.colors.title : theme.colors.title_dark};
 `;
+export const Wrapper = styled.View<StyledProps>`
+  color: ${({ isActive }) =>
+    isActive ? theme.colors.title_dark : theme.colors.background_light};
+  flex-direction: row;
+  align-items: center;
+`;
