@@ -1,12 +1,12 @@
 import React from "react";
-import { Container, Title, IconMorning, TemperatureCard } from "./styles";
+import { Container, Title, IconCard, TemperatureCard } from "./styles";
 
-export function MainCard({ time }) {
+export function MainCard({ time, style, temperature, iconCard }) {
   return (
-    <Container>
+    <Container style={{ backgroundColor: style }}>
       <Title>{time}</Title>
-      <IconMorning name="sun" />
-      <TemperatureCard>21°C</TemperatureCard>
+      <IconCard name={iconCard} />
+      <TemperatureCard>{temperature}</TemperatureCard>
     </Container>
   );
 }
