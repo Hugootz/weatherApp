@@ -2,7 +2,7 @@ export default {
   colors: {
     background: "#232634",
     background_light: "#f2f2f2",
-    title: "#e0e0e0",
+    title_light: "#e0e0e0",
     title_dark: "#000000",
     text_card: "#e8e8e8",
     text_card2: "#d3d3d3",
