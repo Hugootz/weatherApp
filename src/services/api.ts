@@ -29,4 +29,5 @@ export default async function getWeather(locationCoords) {
   } catch (error) {
     console.log(error);
   }
+  return result;
 }
