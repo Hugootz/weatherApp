@@ -24,9 +24,11 @@ export const RefreshButton = styled(TouchableOpacity)`
   align-self: flex-start;
 `;
 export const Refresh = styled(EvilIcons)<StyledProps>`
-  font-size: ${RFValue(35)}px;
+  font-size: ${RFValue(30)}px;
   color: ${({ activeTheme }) =>
-    activeTheme ? theme.colors.title : theme.colors.title_dark};
+    activeTheme ? theme.colors.title_light : theme.colors.title_dark};
+  top: 215px;
+  left: 40px;
 `;
 export const IconSun = styled(Feather)`
   color: ${({ theme }) => theme.colors.sun};
@@ -43,12 +45,12 @@ export const Header = styled.View`
 export const Temperature = styled.Text<StyledProps>`
   font-size: ${RFValue(45)}px;
   color: ${({ activeTheme }) =>
-    activeTheme ? theme.colors.title : theme.colors.title_dark};
+    activeTheme ? theme.colors.title_light : theme.colors.title_dark};
 `;
 export const Symbol = styled.Text<StyledProps>`
   font-size: ${RFValue(18)}px;
   color: ${({ activeTheme }) =>
-    activeTheme ? theme.colors.title : theme.colors.title_dark};
+    activeTheme ? theme.colors.title_light : theme.colors.title_dark};
 `;
 export const Wrapper = styled.View<StyledProps>`
   color: ${({ activeTheme }) =>
@@ -67,7 +69,7 @@ export const Info = styled.View<StyledProps>`
 `;
 export const InfoTitle = styled.Text<StyledProps>`
   color: ${({ activeTheme }) =>
-    activeTheme ? theme.colors.title : theme.colors.background_light};
+    activeTheme ? theme.colors.title_light : theme.colors.background_light};
   margin: 15px;
   font-size: 20px;
   font-weight: bold;
@@ -76,9 +78,9 @@ export const InfoView = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
 `;
-export const Location = styled.Text<StyledProps>`
+export const LocationTitle = styled.Text<StyledProps>`
   color: ${({ activeTheme }) =>
-    activeTheme ? theme.colors.title : theme.colors.title_dark};
+    activeTheme ? theme.colors.title_light : theme.colors.title_dark};
   font-size: ${RFValue(14)}px;
   bottom: 40px;
 `;
@@ -90,7 +92,7 @@ export const ThemeButton = styled.View`
   width: 50px;
   height: 50px;
   border-radius: 25px;
-  top: 10px;
+  bottom: 180px;
 `;
 
 export const SquareButton = styled.View<StyledProps>`
