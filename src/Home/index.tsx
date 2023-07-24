@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Header,
@@ -11,7 +11,7 @@ import {
   Info,
   InfoTitle,
   InfoView,
-  Location,
+  LocationTitle,
   ThemeButton,
   SquareButton,
   CircleButton,
@@ -19,16 +19,44 @@ import {
 import { MainCard } from "../components/MainCard";
 import theme from "../global/styles/theme";
 import { InfoCard } from "../components/InfoCard";
+import * as Location from "expo-location";
+import { Alert } from "react-native";
 
 export function Home() {
   const [darktheme, setDarkTheme] = useState(true);
   const [currentTemperature, setCurrentTemperature] = useState("27");
-  const [location, setLocation] = useState("BR,Fortaleza");
+  const [loc, setLoc] = useState("BR,Fortaleza");
   const [currentHour, setCurrentHour] = useState("13:30");
   const [wind, setWind] = useState("65");
   const [umidity, setUmidity] = useState("80");
   const [tempMin, setTempMin] = useState("21");
   const [tempMax, setTempMax] = useState("29");
+  const [locationCoords, setLocationCoords] = useState({});
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  async function getLocation() {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    console.log(status);
+    if (status !== "granted") {
+      setErrorMsg("A permissão para acessar o local foi negada");
+      return;
+    } else {
+      let location = await Location.getCurrentPositionAsync({});
+      await setLocationCoords(location.coords);
+      console.log(location.coords);
+    }
+  }
+  useEffect(() => {
+    getLocation();
+  }, []);
+
+  let text = "Waiting..";
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (loc) {
+    text = JSON.stringify(loc);
+  }
+
   return (
     <Container activeTheme={darktheme}>
       <RefreshButton>
@@ -42,12 +70,17 @@ export function Home() {
       </Header>
       <ThemeButton>
         <SquareButton activeTheme={darktheme}>
-          <CircleButton activeTheme={darktheme}></CircleButton>
+          <CircleButton
+            activeTheme={darktheme}
+            onPress={() =>
+              darktheme ? setDarkTheme(false) : setDarkTheme(true)
+            }
+          ></CircleButton>
         </SquareButton>
       </ThemeButton>
-      <Location activeTheme={darktheme}>
-        {location}, {currentHour}
-      </Location>
+      <LocationTitle activeTheme={darktheme}>
+        {loc}, {currentHour}
+      </LocationTitle>
       <Wrapper activeTheme={darktheme}>
         <MainCard
           time={"Manhã"}
