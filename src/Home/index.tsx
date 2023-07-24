@@ -20,7 +20,7 @@ import { MainCard } from "../components/MainCard";
 import theme from "../global/styles/theme";
 import { InfoCard } from "../components/InfoCard";
 import * as Location from "expo-location";
-import { Alert } from "react-native";
+import getWeather from "../../src/services/api";
 
 export function Home() {
   const [darktheme, setDarkTheme] = useState(true);
@@ -48,6 +48,8 @@ export function Home() {
   }
   useEffect(() => {
     getLocation();
+    getWeather(locationCoords);
+    console.log(locationCoords);
   }, []);
 
   let text = "Waiting..";
