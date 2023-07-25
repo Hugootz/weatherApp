@@ -24,32 +24,51 @@ import getWeather from "../../src/services/api";
 
 export function Home() {
   const [darktheme, setDarkTheme] = useState(true);
-  const [currentTemperature, setCurrentTemperature] = useState("27");
-  const [loc, setLoc] = useState("BR,Fortaleza");
+  const [currentTemperature, setCurrentTemperature] = useState(10);
+  const [loc, setLoc] = useState("");
   const [currentHour, setCurrentHour] = useState("13:30");
-  const [wind, setWind] = useState("65");
-  const [umidity, setUmidity] = useState("80");
-  const [tempMin, setTempMin] = useState("21");
-  const [tempMax, setTempMax] = useState("29");
+  const [wind, setWind] = useState("");
+  const [umidity, setHumidity] = useState("");
+  const [tempMin, setTempMin] = useState(10);
+  const [tempMax, setTempMax] = useState(10);
   const [locationCoords, setLocationCoords] = useState({});
   const [errorMsg, setErrorMsg] = useState(null);
 
   async function getLocation() {
     let { status } = await Location.requestForegroundPermissionsAsync();
-    console.log(status);
+
     if (status !== "granted") {
       setErrorMsg("A permissão para acessar o local foi negada");
       return;
     } else {
       let location = await Location.getCurrentPositionAsync({});
       await setLocationCoords(location.coords);
-      console.log(location.coords);
     }
   }
+
+  async function setGetWeather() {
+    await getLocation();
+
+    let date = new Date();
+    setCurrentHour(date.getHours() + ":" + date.getMinutes());
+
+    const data = await getWeather(locationCoords);
+    console.log(data);
+
+    setCurrentTemperature(convertKelvinInCelsius(data[0]));
+    console.log(data[0]);
+    setTempMin(convertKelvinInCelsius(data[1]));
+    setTempMax(convertKelvinInCelsius(data[2]));
+    setLoc(data[3]);
+    setWind(data[4]);
+    setHumidity(data[5]);
+  }
+
+  function convertKelvinInCelsius(kelvin: string) {
+    return parseInt(kelvin, 10) - 273;
+  }
   useEffect(() => {
-    getLocation();
-    getWeather(locationCoords);
-    console.log(locationCoords);
+    setGetWeather();
   }, []);
 
   let text = "Waiting..";
@@ -61,7 +80,7 @@ export function Home() {
 
   return (
     <Container activeTheme={darktheme}>
-      <RefreshButton>
+      <RefreshButton onPress={() => setGetWeather()}>
         <Refresh name="refresh" activeTheme={darktheme} />
       </RefreshButton>
       <IconSun name="sun" />
