@@ -28,7 +28,7 @@ export const Refresh = styled(EvilIcons)<StyledProps>`
   color: ${({ activeTheme }) =>
     activeTheme ? theme.colors.title_light : theme.colors.title_dark};
   top: 215px;
-  left: 40px;
+  left: 10px;
 `;
 export const IconSun = styled(Feather)`
   color: ${({ theme }) => theme.colors.sun};
