@@ -1,33 +1,17 @@
-import axios from "axios";
+import axios from 'axios'
+import { LocationObjectCoords } from 'expo-location'
 
-export default async function getWeather(locationCoords) {
-  const lat = locationCoords.latitude;
-  const log = locationCoords.longitude;
+export default async function getWeather(coords: LocationObjectCoords) {
+  const { latitude, longitude } = coords
 
-  var result = [];
   try {
+    // adicionei units como metric para todos os dados serem em Celsius. Isso estava na documentação da API
     const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${log}&appid=724340704594c9c2f73b97d3c26821b9`
-    );
-    const data = response.data;
-    console.log(response);
-    const locationName = data.sys.country + ", " + data.name;
-    const tempMin = data.main.temp_min;
-    const tempMax = data.main.temp_max;
-    const wind = data.wind.speed;
-    const humidity = data.main.humidity;
-    const currentTemperature = data.main.temp;
-
-    result = [
-      currentTemperature,
-      tempMin,
-      tempMax,
-      locationName,
-      wind,
-      humidity,
-    ];
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=724340704594c9c2f73b97d3c26821b9&units=metric`
+    )
+    const data = response.data
+    return data // Sempre retornamos um objeto
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-  return result;
 }
