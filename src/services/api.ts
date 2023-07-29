@@ -10,7 +10,7 @@ export default async function getWeather(locationCoords) {
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${log}&appid=724340704594c9c2f73b97d3c26821b9`
     );
     const data = response.data;
-    console.log(response);
+
     const locationName = data.sys.country + ", " + data.name;
     const tempMin = data.main.temp_min;
     const tempMax = data.main.temp_max;
@@ -26,6 +26,7 @@ export default async function getWeather(locationCoords) {
       wind,
       humidity,
     ];
+    console.log(result);
   } catch (error) {
     console.log(error);
   }
